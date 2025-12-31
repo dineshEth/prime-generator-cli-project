@@ -1,0 +1,21 @@
+{
+  "name": "prime-generator-cli-project",
+  "version": "1.0.0",
+  "description": "A CLI project for prime number generation",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "node main.js",
+    "test": "vitest",
+    "test:ui": "vitest --ui"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@colors/colors": "^1.6.0"
+  },
+  "devDependencies": {
+    "vitest": "^4.0.16"
+  }
+}
