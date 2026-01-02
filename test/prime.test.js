@@ -2,7 +2,10 @@ import { describe, it, expect } from "vitest";
 import {
   primeBtwnStartEndHALF,
   primeBtwnStartEndSQRT,
-  primeBtwnStartSEIVE
+  primeBtwnStartSEIVE,
+  fastestHalfNumbers,
+  fastestSqrt,
+  fastestSOE
 } from "./logic/index.js";
 
 // Test data
@@ -72,6 +75,31 @@ describe('Prime Generator Strategies', () => {
     });
   });
 
+  // test case for fastest BHN
+  describe('fastestHalfNumber (Half Numbers Method)', () => {
+    testCases.forEach(({ name, start, end, expected }) => {
+      it(`should correctly generate primes for ${name}`, () => {
+        const result = fastestHalfNumbers(start, end);
+        expect(result).toEqual(expected);
+      });
+    });
+
+    it('should handle edge case: start equals end (prime)', () => {
+      const result = fastestHalfNumbers(11, 11);
+      expect(result).toEqual([11]);
+    });
+
+    it('should handle edge case: start equals end (non-prime)', () => {
+      const result = fastestHalfNumbers(12, 12);
+      expect(result).toEqual([]);
+    });
+
+    it('should return empty array for range below 2', () => {
+      const result = fastestHalfNumbers(1, 1);
+      expect(result).toEqual([]);
+    });
+  });
+
   // test case for BSN
   describe('primeBtwnStartEndSQRT (Square Root Method)', () => {
     testCases.forEach(({ name, start, end, expected }) => {
@@ -93,6 +121,31 @@ describe('Prime Generator Strategies', () => {
 
     it('should return empty array for range below 2', () => {
       const result = primeBtwnStartEndSQRT(1, 1);
+      expect(result).toEqual([]);
+    });
+  });
+
+  // test case for fastest BSN
+  describe('fastestSqrt (Square Root Method)', () => {
+    testCases.forEach(({ name, start, end, expected }) => {
+      it(`should correctly generate primes for ${name}`, () => {
+        const result = fastestSqrt(start, end);
+        expect(result).toEqual(expected);
+      });
+    });
+
+    it('should handle edge case: start equals end (prime)', () => {
+      const result = fastestSqrt(11, 11);
+      expect(result).toEqual([11]);
+    });
+
+    it('should handle edge case: start equals end (non-prime)', () => {
+      const result = fastestSqrt(12, 12);
+      expect(result).toEqual([]);
+    });
+
+    it('should return empty array for range below 2', () => {
+      const result = fastestSqrt(1, 1);
       expect(result).toEqual([]);
     });
   });
@@ -123,6 +176,38 @@ describe('Prime Generator Strategies', () => {
 
     it('should efficiently handle large ranges', () => {
       const result = primeBtwnStartSEIVE(1, 1000);
+      expect(result.length).toBe(168); // There are 168 primes below 1000
+      expect(result[0]).toBe(2);
+      expect(result[result.length - 1]).toBe(997);
+    });
+  });
+
+  // test case for fastest SOE
+  describe('fastestSoe (Sieve of Eratosthenes Method)', () => {
+    testCases.forEach(({ name, start, end, expected }) => {
+      it(`should correctly generate primes for ${name}`, () => {
+        const result = fastestSOE(start, end);
+        expect(result).toEqual(expected);
+      });
+    });
+
+    it('should handle edge case: start equals end (prime)', () => {
+      const result = fastestSOE(11, 11);
+      expect(result).toEqual([11]);
+    });
+
+    it('should handle edge case: start equals end (non-prime)', () => {
+      const result = fastestSOE(12, 12);
+      expect(result).toEqual([]);
+    });
+
+    it('should return empty array for range below 2', () => {
+      const result = fastestSOE(1, 1);
+      expect(result).toEqual([]);
+    });
+
+    it('should efficiently handle large ranges', () => {
+      const result = fastestSOE(1, 1000);
       expect(result.length).toBe(168); // There are 168 primes below 1000
       expect(result[0]).toBe(2);
       expect(result[result.length - 1]).toBe(997);

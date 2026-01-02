@@ -1,7 +1,7 @@
 import colors from '@colors/colors';
 colors.enable();
 import readline from 'readline';
-import { primeBtwnStartEndHALF,primeBtwnStartEndSQRT,primeBtwnStartSEIVE } from './logic/index.js';
+import { strategySelector } from './utils/algoSelector.js';
 
 // Create readline interface
 const rl = readline.createInterface({
@@ -37,45 +37,17 @@ const main = async () => {
   }
   
   // Get strategy
-  console.log('Choose your strategy: \n1. ByHalfNumbersMethod \n2. BySqrtMethod \n3. BySeiveOfEratosthenesMethod');
+  console.log('Choose your strategy: \n1. ByHalfNumbersMethod \n2. BySqrtMethod \n3. BySeiveOfEratosthenesMethod \n4. fastest BHN \n5. fastest BSN \n6. fastest SOE');
   const strategy = await askQuestion(' startegy : ');
-  if(!['1','2','3'].includes(strategy)){
-    console.log('Invalid strategy choice. Please enter 1, 2, or 3.'.red);
+  if(!['1','2','3','4','5','6'].includes(strategy)){
+    console.log('Invalid strategy choice. Please enter 1, 2, 3, 4, 5, or 6.'.red);
     rl.close();
     return;
   }
 
-  let primes;
-  
-  // Process inputs and generate primes (placeholder logic)
-  let startTime;
-  let endTime;
-    // Here you would call the appropriate prime generation function based on strategy
-    switch(strategy){
-        case '1':
-            startTime = performance.now();
-            primes = primeBtwnStartEndHALF(Number(start), Number(end));
-            endTime = performance.now();
-            break;
-        case '2':
-            startTime = performance.now();
-            primes = primeBtwnStartEndSQRT(Number(start), Number(end));
-            endTime = performance.now();
-            break;
-        case '3':
-            startTime = performance.now();
-            primes = primeBtwnStartSEIVE(Number(start), Number(end));
-            endTime = performance.now();
-            break;
-    }
-    primes = primeBtwnStartEndHALF(Number(start), Number(end));
-
+  const result = strategySelector(start,end,strategy)
   // RESULT
-  console.log('\nRESULT:');
-  console.log(`Primes from ${start} to ${end} using strategy ${strategy}...`);
-  console.log(' Primes : ', colors.bgGreen(primes.join(', ')));
-  console.log('Count : ', colors.magenta(primes.length));
-  console.log(`Time elapsed : ${(endTime-startTime).toFixed(3)} ms`.green); // Placeholder for time taken
+  console.log(result)
   
   
   // Close the readline interface
