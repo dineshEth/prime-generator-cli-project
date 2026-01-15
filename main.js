@@ -22,7 +22,7 @@ const main = async () => {
   
   // Get start number
   const start = await askQuestion('start :  ');
-  if(isNaN(start) || isNaN(Number(start)) || Number(start)<1){
+  if(isNaN(start) || isNaN(Number(start))){
     console.log('Invalid start number. Please enter a valid positive integer.'.red);
     rl.close();
     return;
@@ -30,7 +30,7 @@ const main = async () => {
   
   // Get end number
   const end = await askQuestion('end : ');
-  if(isNaN(end) || isNaN(Number(end)) || Number(end)<1 || Number(end)<Number(start)){
+  if(isNaN(end) || isNaN(Number(end)) || Number(end)<Number(start)){
     console.log('Invalid end number. Please enter a valid positive integer greater than or equal to start.'.red);
     rl.close();
     return;
@@ -45,6 +45,7 @@ const main = async () => {
     return;
   }
 
+  
   const result = strategySelector(start,end,strategy)
   // RESULT
   console.log(result)

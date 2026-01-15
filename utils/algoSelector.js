@@ -6,6 +6,14 @@ const strategySelector = (start,end,strategy=1)=>{
     let primes = []
     let startTime;
     let endTime;
+    if(end<=1){
+        return {
+            primes, 
+            timeElapsed:'0 ms' ,
+            primeCount: 0, 
+            strategy:Strategies[Number(strategy)-1]
+        }
+    }
     // Here you would call the appropriate prime generation function based on strategy
     switch(strategy){
         case '1':

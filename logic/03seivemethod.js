@@ -1,6 +1,7 @@
 function primeBtwnStartSEIVE(start=1,end){
     // create an array of (end+1) length
     // store true, assume all are prime
+    if(end<=0) return []
     let isPirme = new Array(end+1).fill(true)
     // 0, 1 are not prime 
     isPirme[0] = false;
@@ -27,5 +28,6 @@ function primeBtwnStartSEIVE(start=1,end){
     }
     return primes;
 }
+
 
 export { primeBtwnStartSEIVE };
